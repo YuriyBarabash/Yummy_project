@@ -8,6 +8,7 @@ from .models import Reservation
 admin.site.register(FooterItem)
 admin.site.register(Reservation)
 
+
 @admin.register(DishCategory)
 class DishCategoryAdmin(admin.ModelAdmin):
     list_display = ('pk', 'name', 'position', 'is_visible')
@@ -40,3 +41,7 @@ class GalleryAdmin(admin.ModelAdmin):
             return mark_safe(f'<img src="{obj.photo.url}" width=50 height=50>')
 
     photo_src_tag.short_description = 'Image preview'
+
+
+
+

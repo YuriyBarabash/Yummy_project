@@ -17,11 +17,16 @@ Including another URLconf
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
-
+from account.views import LoginUserView, RegisterUserView, Logout_user
 from Yummy_project import settings
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('login/', LoginUserView.as_view(), name='login'),
+    path('register/', RegisterUserView.as_view(), name='register'),
+    path('logout/', Logout_user, name='logout'),
+
     path('', include('home.urls')),
 ]
 

@@ -15,6 +15,8 @@ import os
 
 from django.contrib import staticfiles
 
+import account.apps
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -41,7 +43,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'ckeditor',
-    "home.apps.HomeConfig"
+    "home.apps.HomeConfig",
+    "account.apps.AccountConfig"
+
 ]
 
 CKEDITOR_CONFIGS = {
