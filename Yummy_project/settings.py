@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'ckeditor',
     "home.apps.HomeConfig",
-    "account.apps.AccountConfig"
+    "account.apps.AccountConfig",
+    "manager.apps.ManagerConfig"
 
 ]
 

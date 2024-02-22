@@ -27,6 +27,7 @@ urlpatterns = [
     path('register/', RegisterUserView.as_view(), name='register'),
     path('logout/', Logout_user, name='logout'),
 
+    path('manager/', include('manager.urls')),
     path('', include('home.urls')),
 ]
 
