@@ -4,6 +4,8 @@ from .models import FooterItem
 from .models import DishCategory, Dish
 from .models import Gallery
 from .models import Reservation
+from .models import Chefs
+from .models import Events
 
 admin.site.register(FooterItem)
 admin.site.register(Reservation)
@@ -28,6 +30,32 @@ class DishAdmin(admin.ModelAdmin):
             return mark_safe(f'<img src="{obj.photo.url}" width=50 height=50>')
 
     photo_src_tag.short_description = 'Dish photo'
+
+
+@admin.register(Chefs)
+class ChefsAdmin(admin.ModelAdmin):
+    list_display = ('name', 'specialisation', 'description', 'photo_src_tag','is_visible')
+    list_editable = ('specialisation', 'description', 'is_visible')
+    list_filter = ('is_visible',)
+
+    def photo_src_tag(self, obj):
+        if obj.photo:
+            return mark_safe(f'<img src="{obj.photo.url}" width=50 height=50>')
+
+    photo_src_tag.short_description = 'Chef photo'
+
+
+@admin.register(Events)
+class EventsAdmin(admin.ModelAdmin):
+    list_display = ('name', 'description', 'price', 'photo_src_tag', 'is_visible')
+    list_editable = ('price', 'description', 'is_visible')
+    list_filter = ('is_visible',)
+
+    def photo_src_tag(self, obj):
+        if obj.photo:
+            return mark_safe(f'<img src="{obj.photo.url}" width=50 height=50>')
+
+    photo_src_tag.short_description = 'Event photo'
 
 
 @admin.register(Gallery)

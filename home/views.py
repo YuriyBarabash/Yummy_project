@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
-from .models import DishCategory, Gallery
+from .models import DishCategory, Gallery, Chefs, Events
 from .forms import ReservationForm
 
 
@@ -11,8 +11,11 @@ class MainPageView(TemplateView):
         context = super().get_context_data(**kwargs)
         context['categories'] = DishCategory.objects.filter(is_visible=True)
         context['gallery'] = Gallery.objects.filter(is_visible=True)
+        context['chefs'] = Chefs.objects.filter(is_visible=True)
+        context['events'] = Events.objects.filter(is_visible=True)
         reservation_form = ReservationForm()
         context['reservation_form'] = reservation_form
+
         return context
 
     def post(self, request, *args, **kwargs):

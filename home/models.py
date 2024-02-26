@@ -1,5 +1,6 @@
 
 from django.db import models
+from django.core.validators import RegexValidator
 from ckeditor.fields import RichTextField
 
 
@@ -43,6 +44,20 @@ class Dish(models.Model):
         unique_together = ['id', 'slug']
 
 
+class Chefs(models.Model):
+    name = models.CharField(max_length=255)
+    specialisation = models.CharField(max_length=255)
+    photo = models.ImageField(upload_to='chefs/')
+    description = models.TextField(blank=True)
+    is_visible = models.BooleanField(default=True)
+
+    class Meta:
+        verbose_name_plural = 'Chefs'
+
+    def __str__(self):
+        return f'{self.name}'
+
+
 class Gallery(models.Model):
     photo = models.ImageField(upload_to='gallery/')
     tittle = models.CharField(max_length=255, blank=True)
@@ -53,6 +68,20 @@ class Gallery(models.Model):
 
     def __str__(self):
         return f'{self.tittle}'
+
+
+class Events(models.Model):
+    name = models.CharField(max_length=255, blank=True)
+    description = models.TextField(blank=True)
+    price = models.DecimalField(max_digits=6, decimal_places=2, verbose_name='Price ($)')
+    photo = models.ImageField(upload_to='events/')
+    is_visible = models.BooleanField(default=True)
+
+    class Meta:
+        verbose_name_plural = 'Events'
+
+    def __str__(self):
+        return f'{self.name}'
 
 
 class FooterItem(models.Model):
@@ -68,20 +97,25 @@ class FooterItem(models.Model):
 
 class Reservation(models.Model):
     name = models.CharField(max_length=255)
-    phone = models.CharField(max_length=255)
+
+    phone_regex = RegexValidator(
+        regex=r'^\+?380\d{9}$',
+        message="Phone number must be entered in the format: '+380xxxxxxxxx'."
+    )
+    phone = models.CharField(max_length=255, validators=[phone_regex])
     email = models.EmailField()
     date = models.DateField()
     time = models.TimeField()
     people_number = models.PositiveSmallIntegerField()
-    is_confirmed = models.BooleanField(default=False)
     message = models.TextField(blank=True)
+
+    is_confirmed = models.BooleanField(default=False)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         ordering = ('-created_at',)
-
 
 
 
